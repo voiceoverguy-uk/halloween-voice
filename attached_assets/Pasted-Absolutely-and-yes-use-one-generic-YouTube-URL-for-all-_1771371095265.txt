@@ -1,0 +1,180 @@
+Absolutely — and yes, use one generic YouTube URL for all 4 embeds and the same MP3 for all demo cards for now. That’s a very sensible “lock layout first, content second” workflow (unlike Dave’s “launch first, think never” approach).
+
+Here’s a copy/paste Replit prompt that turns your full brief into an implementable build spec (Node + Express, static site, contact endpoint, SEO/meta, sitemap, data-driven demos/videos, one-audio-at-a-time, lite YouTube embeds, mobile no-wobble).
+
+⸻
+
+✅ REPLIT PROMPT (copy/paste)
+
+Build a modern, premium 1-page microsite for HalloweenVoice.co.uk. It must be fast, mobile-first, and designed to convert via a contact form (email address hidden).
+
+1) Tech / Structure
+	•	Use Node.js + Express.
+	•	Serve a static front-end from /public.
+	•	Add a server-side contact endpoint at POST /api/contact that sends an email (email address must NOT appear in the front-end code).
+	•	Use minimal dependencies.
+	•	Site is a single scrolling page with anchored sections and a sticky nav.
+
+Folder structure (required):
+	•	/public/index.html
+	•	/public/styles.css
+	•	/public/script.js
+	•	/public/audio/ (place MP3 files here)
+	•	/data/demos.json (or /data/demos.js)
+	•	/data/videos.json (or /data/videos.js)
+	•	/server.js
+	•	/public/sitemap.xml
+	•	/public/robots.txt
+
+2) Branding / Visual Style
+
+Implement a modern “subtle spooky” look:
+	•	Background: near-black #0b0b10
+	•	Primary accent red: #d42027
+	•	Secondary accent purple: #7c3aed (sparingly, for glow/streak/edge lighting)
+	•	Text: off-white / light grey (high contrast, readable)
+	•	No clipart. No cheesy Halloween graphics.
+	•	Cards: rounded corners, soft shadows, tasteful neon-like edge lighting (purple glow hint).
+	•	Typography: modern sans-serif (clean SaaS vibe). Keep headings slightly more dramatic if needed, but still professional.
+
+3) Page Sections (Option A: 1-page with anchors)
+
+Sticky nav with anchor links:
+	1.	Hero
+	2.	Featured Demos
+	3.	YouTube Showcase
+	4.	Voice Styles / Use Cases
+	5.	Arabella Feature (optional section, include it but keep it compact)
+	6.	Credits / Social Proof
+	7.	Contact
+
+Each section needs a clear H2 and spacing.
+
+4) Hero Section Content
+	•	H1: Halloween Voiceover – Spooky, Scary & Funny Character Voices
+	•	One punchy sub-line describing range: comedy → dark → cinematic trailer → theme park scare → radio imaging.
+	•	Two CTAs:
+	•	Primary: “Listen to Demos” (scrolls to demos section)
+	•	Secondary: “Contact / Get a Quote” (scrolls to contact section)
+	•	Add a mini trust strip under CTAs with short bullets:
+	•	“Broadcast quality”
+	•	“Fast turnaround”
+	•	“UK-based”
+	•	“Source-Nexus available”
+
+5) Featured Demos (MP3 Grid)
+	•	Create a card grid like Arabella’s site style.
+	•	For NOW, create 4 demo cards so the layout is clear.
+	•	All 4 cards use the same placeholder MP3 file:
+	•	/public/audio/spooky-showreel-26-guy-harris.mp3
+	•	Demo cards must show:
+	•	Title
+	•	1-line descriptor
+	•	Audio player controls with progress bar
+	•	Critical behaviour:
+	•	Only one demo can play at a time (if another starts, pause the currently playing one).
+	•	No autoplay.
+	•	Data-driven:
+	•	Load demos from /data/demos.json (fetch it client-side).
+	•	Each demo item includes: title, description, file.
+	•	Adding a demo later must be as simple as: upload MP3 into /public/audio/ and add 1 object into demos.json.
+
+Provide placeholder demo titles/descriptions (4 items) but all using the same MP3 file:
+	1.	“Sinister Trailer Villain” — “Deep, cinematic menace”
+	2.	“Scream / Ghost Face Style” — “Sharp, intense horror energy”
+	3.	“Count Dracula” — “Classic gothic character”
+	4.	“Haunted Attraction Announcer” — “Big, bold scare-voice delivery”
+
+6) YouTube Showcase (4 embeds)
+	•	Create a responsive 2x2 grid on desktop, stacked on mobile.
+	•	Use a lite YouTube embed approach for performance (do not load heavy iframes until interaction). Implement either:
+	•	a lightweight custom embed (thumbnail + play button → iframe on click), OR
+	•	a minimal “lite-youtube” style component.
+	•	For NOW, use the SAME YouTube URL in all 4 slots:
+	•	https://www.youtube.com/watch?v=bmMpk16zuSs
+	•	Data-driven:
+	•	Load video URLs from /data/videos.json.
+	•	Each item includes: title (optional) and url.
+	•	Must be easy to replace later with 4 real URLs.
+
+7) Voice Styles / Use Cases (Grid)
+
+Create a clean grid of “what you can deliver”, each with 1–2 line max:
+	•	Scream / Ghost Face style
+	•	Evil villain
+	•	Count Dracula
+	•	Horror trailers / game trailers
+	•	Haunted attraction / in-store
+	•	Radio imaging and promos
+	•	Funny spooky characters
+
+8) Arabella Feature (compact)
+
+Add a small section titled “Also available: Arabella”.
+	•	Short line: “Arabella’s creepy child voice (VOXI/KISS-style).”
+	•	Note: “Booked through the same enquiry form.”
+	•	Include one small placeholder audio card (can reuse the same MP3 placeholder for now).
+
+9) Credits / Social Proof
+
+Tight, skimmable bullets. Include placeholder items for now:
+	•	“Used for Halloween campaigns, radio promos, games, trailers, events”
+	•	“Broadcast-quality studio delivery”
+	•	Optionally add 2 short placeholder testimonials (clearly marked as placeholders).
+
+10) Contact Form (Email hidden)
+
+Implement a real contact form that sends email server-side.
+Front-end fields:
+	•	Name (required)
+	•	Email (required)
+	•	Company (optional)
+	•	Message (required)
+	•	Honeypot hidden field (spam trap)
+
+Back-end:
+	•	POST /api/contact validates inputs.
+	•	Add light rate limiting (in-memory is fine).
+	•	Send email using Resend (preferred). If not available, use Nodemailer SMTP.
+	•	Email destination address must be stored in an environment variable, e.g. CONTACT_TO_EMAIL.
+	•	Provide friendly success + error messages.
+	•	DO NOT expose the email address anywhere in HTML/JS.
+
+11) SEO + Sharing (must-have)
+
+Must include proper meta tags in index.html:
+	•	<title> and meta description (write a good one)
+	•	Canonical URL: https://www.halloweenvoice.co.uk/
+	•	Open Graph tags: og:title, og:description, og:image (use placeholder image path for now), og:url
+	•	Twitter card tags
+	•	Include a default OG image path like: /og-halloweenvoice-1200x630.png (placeholder file ok)
+
+Also include:
+	•	/public/sitemap.xml (single URL entry for homepage)
+	•	/public/robots.txt allowing crawling and pointing to sitemap
+	•	One clear H1 and logical H2s.
+
+12) Performance + Accessibility
+	•	Mobile must not horizontally “wobble”: lock overflow-x and ensure no elements exceed viewport width.
+	•	Buttons and audio controls must be keyboard accessible.
+	•	Ensure contrast is readable on near-black background.
+	•	Avoid heavy libraries.
+	•	Lazy-load anything heavy (especially YouTube).
+
+13) Deliverables
+	•	Working local site (Replit run button) with Express server.
+	•	All sections present with styling in place.
+	•	Demos and videos loaded from data files.
+	•	One-audio-at-a-time behaviour working.
+	•	Lite YouTube embeds working with the placeholder URL.
+	•	Contact form posts to backend and is wired for Resend/SMTP via env vars.
+
+IMPORTANT PLACEHOLDER CONTENT TO USE NOW:
+	•	All demo cards use: /public/audio/spooky-showreel-26-guy-harris.mp3
+	•	All YouTube embeds use: https://www.youtube.com/watch?v=bmMpk16zuSs
+
+Build it clean, premium, and modern. No novelty Halloween graphics.
+
+⸻
+
+If you want, I can also give you a “Replit troubleshooting add-on prompt” for the usual nonsense (CORS, env var not loading, Resend key missing, Express static ordering, etc.) — because Replit occasionally behaves like it’s been possessed by a small Victorian child.
