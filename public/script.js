@@ -182,6 +182,24 @@
     var form = document.getElementById('contactForm');
     var status = document.getElementById('formStatus');
     var submitBtn = document.getElementById('contactSubmit');
+    var messageEl = document.getElementById('contactMessage');
+    var charNum = document.getElementById('charNum');
+    var charCount = document.getElementById('charCount');
+    var minChars = 40;
+
+    submitBtn.disabled = true;
+
+    messageEl.addEventListener('input', function () {
+      var len = messageEl.value.length;
+      charNum.textContent = len;
+      if (len >= minChars) {
+        charCount.classList.add('met');
+        submitBtn.disabled = false;
+      } else {
+        charCount.classList.remove('met');
+        submitBtn.disabled = true;
+      }
+    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -194,9 +212,9 @@
       var company = form.company.value.trim();
       var message = form.message.value.trim();
 
-      if (!name || !email || !message) {
+      if (!name || !email || !message || message.length < 40) {
         status.className = 'form-status error';
-        status.textContent = 'Please fill in all required fields.';
+        status.textContent = 'Please fill in all required fields (message must be at least 40 characters).';
         return;
       }
 
@@ -214,6 +232,9 @@
       status.className = 'form-status success';
       status.textContent = 'Opening your email app... If nothing happens, please email us directly.';
       form.reset();
+      charNum.textContent = '0';
+      charCount.classList.remove('met');
+      submitBtn.disabled = true;
     });
   }
 
