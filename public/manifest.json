@@ -1,0 +1,21 @@
+{
+  "name": "HalloweenVoice",
+  "short_name": "HalloweenVoice",
+  "description": "Professional Halloween voiceover artist",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b10",
+  "theme_color": "#d42027",
+  "icons": [
+    {
+      "src": "/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
