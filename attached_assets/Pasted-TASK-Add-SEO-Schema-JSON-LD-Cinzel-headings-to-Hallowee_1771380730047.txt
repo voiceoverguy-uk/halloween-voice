@@ -1,0 +1,86 @@
+TASK: Add SEO Schema (JSON-LD) + Cinzel headings to HalloweenVoice.co.uk site.
+
+CONTEXT:
+This is a one-page Halloween voiceover site with:
+- MP3 demo grid
+- 4 YouTube embeds
+- Contact form (email hidden)
+- Brand colours: near-black #0b0b10, red #d42027, subtle purple #7c3aed
+- Twitter handle: @voiceoverman
+- OG image: /images/halloween-voice-og.png
+
+PART A — CINZEL HEADINGS
+1) Add Google Font Cinzel (weights 600/700) to the site:
+   - If using HTML head, add <link rel="preconnect"> and the Google Fonts stylesheet.
+   - If using CSS import, use @import url(...) at top of main stylesheet.
+2) Apply Cinzel ONLY to headings and section titles:
+   - h1, h2, h3, and the site logo wordmark text if it's text-based.
+   - Keep body text and UI controls (nav, buttons, form inputs) on the existing sans font.
+3) Add subtle tracking for headings to feel premium:
+   - letter-spacing: 0.02em for h2/h3 (not too much).
+4) Ensure headings remain responsive:
+   - h1 should still be big and readable on mobile without overflow.
+5) Do not change layout or spacing other than what’s needed for font rendering.
+
+PART B — JSON-LD SCHEMA (SITE-WIDE)
+Add a single <script type="application/ld+json"> block in the <head> (or server-rendered head) for the homepage with:
+
+Include these schema objects in one JSON-LD array:
+1) Organization (or LocalBusiness if you prefer, but Organization is fine)
+   - name: "Halloween Voice"
+   - url: "https://halloweenvoice.co.uk/"
+   - logo: "https://halloweenvoice.co.uk/images/halloween-voice-og.png" (or header logo if you have a square mark)
+   - sameAs: include only real profiles if available; include Twitter/X as "https://twitter.com/voiceoverman" at minimum
+   - contactPoint:
+     - contactType: "sales"
+     - availableLanguage: "en-GB"
+
+2) WebSite
+   - name: "Halloween Voice"
+   - url: "https://halloweenvoice.co.uk/"
+   - inLanguage: "en-GB"
+
+3) WebPage
+   - @id: "https://halloweenvoice.co.uk/#homepage"
+   - url: "https://halloweenvoice.co.uk/"
+   - name: "Halloween Voiceover – Spooky, Scary & Funny Character Voices"
+   - description: match the meta description
+   - primaryImageOfPage: og image
+   - isPartOf: WebSite
+
+4) Person (the voiceover talent)
+   - name: "Guy Harris"
+   - jobTitle: "Voiceover Artist"
+   - url: "https://halloweenvoice.co.uk/"
+   - sameAs: include Twitter/X as above (and any others only if we actually have them)
+   - worksFor: Organization
+   - knowsLanguage: "en-GB"
+
+5) ItemList for Audio demos (AudioObject items)
+   - For each demo card, output an AudioObject with:
+     - name (demo title)
+     - description (short descriptor)
+     - contentUrl (direct MP3 URL e.g. https://halloweenvoice.co.uk/audio/<file>.mp3)
+     - encodingFormat: "audio/mpeg"
+   - Wrap the AudioObjects in an ItemList named "Featured Halloween Voice Demos"
+
+6) ItemList for YouTube showcase (VideoObject items)
+   - For each of the 4 YouTube videos:
+     - name (use a clean title)
+     - description (1 line)
+     - embedUrl (youtube embed URL)
+     - url (canonical YouTube watch URL)
+     - thumbnailUrl (YouTube thumbnail if available)
+     - uploadDate: include full ISO 8601 with timezone (use a placeholder if unknown but format must be valid, e.g. "2024-10-01T00:00:00+00:00")
+   - IMPORTANT: Use correct ISO timestamps (full) for uploadDate.
+
+IMPORTANT RULES:
+- Do NOT add aggregateRating anywhere.
+- Do NOT add Offer schemas for voiceover pricing.
+- Ensure schema validates in Google Rich Results Test (no obvious missing required fields).
+- Ensure the schema is included in the initial HTML response (server-rendered head if using Express injection).
+
+OUTPUT:
+- Show me the exact JSON-LD you added.
+- Show me the exact font import you added and the CSS selectors used for headings.
+- List every file changed.
