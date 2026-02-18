@@ -48,6 +48,7 @@ A modern, premium 1-page microsite for HalloweenVoice.co.uk — a professional H
 
 ## Recent Changes
 - 2026-02-18: Switched contact form from server-side Resend/SMTP to obfuscated mailto
+- 2026-02-18: Moved Guy Harris credit between H1 and subtext, dynamic year count from 2000
 - 2026-02-18: Updated Arabella demo to kiss-voxi-mobil-scary-child-voice-arabella-harris.mp3
 - 2026-02-18: Simplified server.js (removed contact API endpoint, rate limiting, email deps)
 - 2026-02-17: Initial build — all sections, styling, JS, server, data files

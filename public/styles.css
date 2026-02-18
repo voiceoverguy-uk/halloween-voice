@@ -802,10 +802,10 @@ body {
 }
 
 .hero-credit {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--text-muted);
-  margin-top: 12px;
-  margin-bottom: 4px;
+  margin-top: 10px;
+  margin-bottom: 2px;
 }
 
 .credits-intro {

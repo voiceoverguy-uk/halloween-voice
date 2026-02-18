@@ -1,6 +1,9 @@
 (function () {
   'use strict';
 
+  const voYearsEl = document.getElementById('voYears');
+  if (voYearsEl) voYearsEl.textContent = new Date().getFullYear() - 2000;
+
   let currentAudio = null;
   let currentPlayBtn = null;
 
