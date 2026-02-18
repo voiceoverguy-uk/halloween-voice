@@ -1,0 +1,75 @@
+TASK: Implement final SEO meta setup for HalloweenVoice.co.uk
+
+This is a 1-page Halloween voiceover website.
+
+Use the following EXACT values:
+
+META TITLE:
+Halloween Voiceover Artist UK | Spooky, Scary & Funny Voices
+
+META DESCRIPTION:
+Professional UK Halloween voiceover artist delivering spooky, scary and funny character voices for horror trailers, games, radio and haunted attractions.
+
+CANONICAL URL:
+https://halloweenvoice.co.uk/
+
+OG IMAGE:
+https://halloweenvoice.co.uk/images/halloween-voice-og.png
+
+TWITTER HANDLE:
+@voiceoverman
+
+----------------------------------------------------
+REQUIREMENTS
+----------------------------------------------------
+
+1) In the <head> of the homepage, add:
+
+<title>Halloween Voiceover Artist UK | Spooky, Scary & Funny Voices</title>
+
+<meta name="description" content="Professional UK Halloween voiceover artist delivering spooky, scary and funny character voices for horror trailers, games, radio and haunted attractions.">
+
+<link rel="canonical" href="https://halloweenvoice.co.uk/">
+
+----------------------------------------------------
+
+2) Add Open Graph tags:
+
+<meta property="og:title" content="Halloween Voiceover Artist UK | Spooky, Scary & Funny Voices">
+<meta property="og:description" content="Professional UK Halloween voiceover artist delivering spooky, scary and funny character voices for horror trailers, games, radio and haunted attractions.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://halloweenvoice.co.uk/">
+<meta property="og:image" content="https://halloweenvoice.co.uk/images/halloween-voice-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+----------------------------------------------------
+
+3) Add Twitter Card tags:
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Halloween Voiceover Artist UK | Spooky, Scary & Funny Voices">
+<meta name="twitter:description" content="Professional UK Halloween voiceover artist delivering spooky, scary and funny character voices for horror trailers, games, radio and haunted attractions.">
+<meta name="twitter:image" content="https://halloweenvoice.co.uk/images/halloween-voice-og.png">
+<meta name="twitter:site" content="@voiceoverman">
+<meta name="twitter:creator" content="@voiceoverman">
+
+----------------------------------------------------
+
+4) IMPORTANT SERVER RULE
+
+If this is an Express server using express.static:
+
+- Ensure the homepage HTML with these meta tags is served directly
+- Register the "/" route BEFORE express.static
+- Do not rely on client-side JS to inject meta tags
+- Meta tags must exist in the initial HTML response
+
+----------------------------------------------------
+
+5) Confirm:
+
+- Which file(s) were edited
+- Show the final <head> output
+- Confirm no duplicate meta tags exist
+- Confirm OG image path resolves correctly
