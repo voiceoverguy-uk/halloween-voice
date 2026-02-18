@@ -1,0 +1,85 @@
+TASK: Upgrade the “What People Say” testimonial section to a more premium, prestige-horror presentation.
+
+--------------------------------------------------
+1) SECTION TITLE UPDATE
+--------------------------------------------------
+
+Replace the heading:
+"What People Say"
+
+WITH:
+"Voices From the Shadows"
+
+REQUIREMENTS:
+- Keep the same heading level (h2).
+- Keep Cinzel font.
+- Do not change spacing or layout.
+- Maintain responsiveness.
+
+--------------------------------------------------
+2) TESTIMONIAL CONTENT UPDATE
+--------------------------------------------------
+
+Replace the two existing testimonials with the following.
+
+----------------------------------
+TESTIMONIAL #1
+----------------------------------
+
+Quote:
+"My go to Guy for spooky Halloween voices — nail in the coffin every time."
+
+Attribution line (formatted premium style):
+— Chris Atkins • *With Feeling* • Dubai
+
+LINKING RULES:
+- Hyperlink ONLY the words "With Feeling" to:
+  https://withfeeling.com/
+- Do not display the raw URL.
+- Open link in new tab:
+  target="_blank" rel="noopener noreferrer"
+
+----------------------------------
+TESTIMONIAL #2
+----------------------------------
+
+Quote:
+"It's 'spooky' how good Guy is at this horror genre. It scares me to not book him!"
+
+Attribution line (formatted premium style):
+— Ryan Ogilvie • *Mind the Gap Creative*
+
+LINKING RULES:
+- Hyperlink ONLY the words "Mind the Gap Creative" to:
+  https://mindthegapcreative.co.uk/
+- Open link in new tab:
+  target="_blank" rel="noopener noreferrer"
+
+--------------------------------------------------
+3) STYLING REQUIREMENTS
+--------------------------------------------------
+
+- Keep the testimonial card layout exactly as-is.
+- Company names should be italicised.
+- Links should NOT be bright blue.
+- Links should inherit the text colour.
+- On hover:
+    - add subtle underline
+    OR
+    - slightly brighten the text colour (tasteful on dark background).
+- Maintain accessibility (visible focus style for keyboard navigation).
+
+--------------------------------------------------
+4) CLEANUP
+--------------------------------------------------
+
+Remove the line:
+"(Testimonials are placeholders — to be replaced)"
+
+--------------------------------------------------
+OUTPUT
+--------------------------------------------------
+
+- Show updated testimonial markup.
+- Show CSS adjustments (if any).
+- Confirm links work and layout remains unchanged.
