@@ -245,5 +245,13 @@
     initContactForm();
     var yearEl = document.getElementById('copyrightYear');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+    var ageEl = document.getElementById('arabellaAge');
+    if (ageEl) {
+      var bday = new Date(2016, 5, 4);
+      var now = new Date();
+      var age = now.getFullYear() - bday.getFullYear();
+      if (now.getMonth() < bday.getMonth() || (now.getMonth() === bday.getMonth() && now.getDate() < bday.getDate())) age--;
+      ageEl.textContent = age;
+    }
   });
 })();
