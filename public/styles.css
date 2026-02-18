@@ -805,7 +805,15 @@ body {
   font-size: 1.05rem;
   color: var(--text-muted);
   margin-top: 10px;
-  margin-bottom: 2px;
+  margin-bottom: 0;
+}
+
+.hero-divider {
+  width: 180px;
+  height: 2px;
+  margin: 14px auto;
+  background: linear-gradient(90deg, transparent, var(--purple), transparent);
+  border-radius: 2px;
 }
 
 .credits-intro {
