@@ -150,10 +150,11 @@ body {
 }
 
 .hero h1 {
+  font-family: 'Cinzel', serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.01em;
   margin-bottom: 20px;
   max-width: 800px;
   margin-left: auto;
@@ -241,11 +242,12 @@ body {
 }
 
 .section h2 {
+  font-family: 'Cinzel', serif;
   font-size: clamp(1.6rem, 3.5vw, 2.2rem);
   font-weight: 700;
   text-align: center;
   margin-bottom: 48px;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
 }
 
 .section-sub {
@@ -294,9 +296,11 @@ body {
 }
 
 .demo-card h3 {
+  font-family: 'Cinzel', serif;
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 4px;
+  letter-spacing: 0.02em;
 }
 
 .demo-card .demo-desc {
@@ -478,9 +482,11 @@ body {
 }
 
 .style-card h3 {
+  font-family: 'Cinzel', serif;
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 4px;
+  letter-spacing: 0.02em;
 }
 
 .style-card p {
@@ -543,9 +549,11 @@ body {
 
 .credits-list h3,
 .testimonials h3 {
+  font-family: 'Cinzel', serif;
   font-size: 1.15rem;
   font-weight: 600;
   margin-bottom: 16px;
+  letter-spacing: 0.02em;
 }
 
 .credits-list ul {
