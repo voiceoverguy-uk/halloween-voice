@@ -20,6 +20,8 @@
   --nav-height: 64px;
 }
 
+.accent-red { color: var(--red); }
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
