@@ -45,10 +45,13 @@
       }
 
       if (audio.paused) {
-        audio.play();
-        playBtn.innerHTML = pauseSVG;
-        currentAudio = audio;
-        currentPlayBtn = playBtn;
+        audio.play().then(function () {
+          playBtn.innerHTML = pauseSVG;
+          currentAudio = audio;
+          currentPlayBtn = playBtn;
+        }).catch(function (err) {
+          console.warn('Playback failed:', err.message);
+        });
       } else {
         audio.pause();
         playBtn.innerHTML = playSVG;
