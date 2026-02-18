@@ -847,7 +847,15 @@ body {
   border-radius: 2px;
 }
 
+.mobile-br {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .mobile-br {
+    display: block;
+  }
+
   .hero {
     background-position: center top;
   }
