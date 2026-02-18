@@ -18,5 +18,15 @@
     "title": "York Dungeons Spooky Voice",
     "description": "Atmospheric dark attraction voiceover",
     "file": "/audio/york-dungeons-dark-voice.mp3"
+  },
+  {
+    "title": "Ghost Face Style Voiceover",
+    "description": "Scary Movie - Ghost Face style",
+    "file": "/audio/ghost-face-showreel-guy-harris.mp3"
+  },
+  {
+    "title": "Guy's Halloween Spooky Laughs",
+    "description": "Purchase Now",
+    "file": "/audio/halloween-laughs-guy-harris.mp3"
   }
 ]
