@@ -46,6 +46,10 @@
         currentAudio.pause();
         if (currentPlayBtn) currentPlayBtn.innerHTML = playSVG;
       }
+      if (activeVideoEl) {
+        resetVideo(activeVideoEl);
+        activeVideoEl = null;
+      }
 
       if (audio.paused) {
         audio.play().then(function () {
@@ -119,6 +123,16 @@
     return match ? match[1] : null;
   }
 
+  var activeVideoEl = null;
+
+  function resetVideo(liteYt) {
+    var vid = liteYt.dataset.id;
+    var title = liteYt.dataset.title || 'Video';
+    liteYt.innerHTML =
+      '<img src="https://img.youtube.com/vi/' + vid + '/hqdefault.jpg" alt="' + title + '" loading="lazy">' +
+      '<div class="play-overlay"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>';
+  }
+
   function createVideoCard(video) {
     var card = document.createElement('div');
     card.className = 'video-card';
@@ -127,7 +141,7 @@
     var thumbUrl = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
 
     card.innerHTML =
-      '<div class="lite-youtube" data-id="' + id + '">' +
+      '<div class="lite-youtube" data-id="' + id + '" data-title="' + (video.title || 'Video') + '">' +
         '<img src="' + thumbUrl + '" alt="' + (video.title || 'Video') + '" loading="lazy">' +
         '<div class="play-overlay"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>' +
       '</div>' +
@@ -135,6 +149,17 @@
 
     var liteYt = card.querySelector('.lite-youtube');
     liteYt.addEventListener('click', function () {
+      if (activeVideoEl && activeVideoEl !== liteYt) {
+        resetVideo(activeVideoEl);
+      }
+      if (activeVideoEl === liteYt) return;
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        if (currentPlayBtn) currentPlayBtn.innerHTML = playSVG;
+        currentAudio = null;
+        currentPlayBtn = null;
+      }
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -142,6 +167,7 @@
       iframe.title = video.title || 'YouTube video';
       liteYt.innerHTML = '';
       liteYt.appendChild(iframe);
+      activeVideoEl = liteYt;
     });
 
     return card;
