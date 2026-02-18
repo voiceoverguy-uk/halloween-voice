@@ -151,22 +151,38 @@ body {
 }
 
 .hero {
+  position: relative;
+  background-color: #0b0b10;
+  background-image: url('/images/ghost-hero-bg.webp');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   padding: 160px 0 100px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
 }
 
 .hero::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: -40%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(212, 32, 39, 0.08) 0%, transparent 70%);
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(11, 11, 16, 0.95) 0%,
+    rgba(11, 11, 16, 0.85) 40%,
+    rgba(11, 11, 16, 0.75) 70%,
+    rgba(11, 11, 16, 0.6) 100%
+  );
   pointer-events: none;
+}
+
+.hero > .container {
+  position: relative;
+  z-index: 2;
 }
 
 .hero h1 {
@@ -824,6 +840,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    background-position: center top;
+  }
+
   .nav-toggle {
     display: flex;
   }
