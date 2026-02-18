@@ -100,9 +100,9 @@
         var arabellaCard = document.getElementById('arabellaDemoCard');
         if (arabellaCard) {
           arabellaCard.appendChild(createAudioCard({
-            title: 'Arabella – Creepy Child Voice',
-            description: 'Unsettling, atmospheric child character',
-            file: '/audio/spooky-showreel-26-guy-harris.mp3'
+            title: 'Arabella 9 years \u2013 Spooky child voice',
+            description: 'Creepy child character \u2013 VOXI / KISS style',
+            file: '/audio/kiss-voxi-mobil-scary-child-voice-arabella-harris.mp3'
           }));
         }
       })
@@ -173,6 +173,11 @@
     });
   }
 
+  function decodeAddr() {
+    var p = ['halloween', 'voiceoverguy', 'co.uk'];
+    return p[0] + '@' + p[1] + '.' + p[2];
+  }
+
   function initContactForm() {
     var form = document.getElementById('contactForm');
     var status = document.getElementById('formStatus');
@@ -181,43 +186,34 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-      status.className = 'form-status';
-      status.textContent = '';
+      var hp = form.website ? form.website.value : '';
+      if (hp) return;
 
-      var data = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        company: form.company.value.trim(),
-        message: form.message.value.trim(),
-        website: form.website.value
-      };
+      var name = form.name.value.trim();
+      var email = form.email.value.trim();
+      var company = form.company.value.trim();
+      var message = form.message.value.trim();
 
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
-        .then(function (res) { return res.json(); })
-        .then(function (result) {
-          if (result.success) {
-            status.className = 'form-status success';
-            status.textContent = result.message;
-            form.reset();
-          } else {
-            status.className = 'form-status error';
-            status.textContent = result.error || 'Something went wrong.';
-          }
-        })
-        .catch(function () {
-          status.className = 'form-status error';
-          status.textContent = 'Network error. Please try again.';
-        })
-        .finally(function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Enquiry';
-        });
+      if (!name || !email || !message) {
+        status.className = 'form-status error';
+        status.textContent = 'Please fill in all required fields.';
+        return;
+      }
+
+      var addr = decodeAddr();
+      var subject = encodeURIComponent('Halloween Voice Enquiry from ' + name);
+      var body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        (company ? 'Company: ' + company + '\n' : '') +
+        '\nMessage:\n' + message
+      );
+
+      window.location.href = 'mail' + 'to:' + addr + '?subject=' + subject + '&body=' + body;
+
+      status.className = 'form-status success';
+      status.textContent = 'Opening your email app... If nothing happens, please email us directly.';
+      form.reset();
     });
   }
 
