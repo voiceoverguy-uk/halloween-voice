@@ -1,0 +1,52 @@
+GOAL:
+Implement a full brand asset + SEO/social meta setup for HalloweenVoice.co.uk.
+
+ASSETS (already uploaded by me into /public/images/):
+- favicon-16x16.png
+- favicon-32x32.png
+- favicon-48x48.png
+- apple-touch-icon.png (180x180)
+- android-chrome-192x192.png
+- android-chrome-512x512.png
+- halloween-voice-header.png (transparent PNG, used in site header)
+- halloween-voice-og.png (1200x630 for Open Graph + WhatsApp + LinkedIn)
+- halloween-voice-twitter.png (optional 1200x600; if missing, reuse halloween-voice-og.png)
+
+REQUIREMENTS:
+1) Add favicon + app icon tags to the <head> for ALL pages/routes:
+   - 16x16, 32x32, 48x48 PNG favicons
+   - Apple touch icon 180x180
+   - Android 192x192 and 512x512 icons
+   - Add a web manifest link if the project has one (optional).
+
+2) Add full Open Graph + Twitter card meta tags site-wide:
+   - og:title: "Halloween Voiceover – Spooky, Scary & Funny Character Voices"
+   - og:description: "Professional UK Halloween voiceover artist delivering cinematic horror, villains, Ghost Face style, Dracula and more."
+   - og:type: "website"
+   - og:url: use the canonical URL for the current route
+   - og:image: https://halloweenvoice.co.uk/images/halloween-voice-og.png
+   - twitter:card: summary_large_image
+   - twitter:site and twitter:creator should use: @voiceoverman
+   - twitter:image: use halloween-voice-twitter.png if present; otherwise use halloween-voice-og.png
+
+3) Add canonical link tags site-wide:
+   - canonical should match the current route and use https://halloweenvoice.co.uk
+
+4) Ensure the meta tags are actually served to crawlers:
+   IMPORTANT: If this is an Express/static setup where index.html is served by express.static,
+   then implement a small server-side render/HTML injection for the main routes (at least "/")
+   so OG tags are not placeholders and are present in the initial HTML response.
+   Register HTML route handlers BEFORE express.static so "/" is not intercepted by static middleware.
+
+5) Update the site header to use /images/halloween-voice-header.png as the logo image.
+   - Keep it responsive (max-height ~44–52px on desktop, ~36–44px on mobile)
+   - Use an <img> with alt="Halloween Voice" and no layout shift.
+
+6) Performance:
+   - Add cache headers for /images/ assets (e.g. 30 days) if using Express.
+   - Ensure images are not massive; do not inline base64.
+
+OUTPUT:
+- Tell me exactly which files you changed.
+- Confirm the meta tags by showing the final HTML <head> block (or template partial).
+- Confirm that when sharing the homepage URL, the preview image shown is halloween-voice-og.png.
