@@ -171,6 +171,29 @@
         links.classList.remove('open');
       }
     });
+
+    var navAnchors = links.querySelectorAll('a[href^="#"]');
+    var sections = [];
+    navAnchors.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) sections.push({ link: a, el: el });
+    });
+
+    var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 64;
+
+    function setActive() {
+      var scrollY = window.scrollY + navH + 40;
+      var current = null;
+      sections.forEach(function (s) {
+        if (s.el.offsetTop <= scrollY) current = s;
+      });
+      navAnchors.forEach(function (a) { a.classList.remove('active'); });
+      if (current) current.link.classList.add('active');
+    }
+
+    window.addEventListener('scroll', setActive, { passive: true });
+    setActive();
   }
 
   function decodeAddr() {
