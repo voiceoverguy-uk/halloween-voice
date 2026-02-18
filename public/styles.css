@@ -488,6 +488,29 @@ body {
   color: var(--text-muted);
 }
 
+#arabella {
+  position: relative;
+  overflow: hidden;
+}
+
+#arabella::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/halloween-bg-image.jpg') center center / cover no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#arabella > .container {
+  position: relative;
+  z-index: 1;
+}
+
 .arabella-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
