@@ -295,12 +295,15 @@ body {
 }
 
 .demos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .demo-card {
+  flex: 0 1 calc(33.333% - 14px);
+  min-width: 260px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius);
@@ -926,9 +929,15 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .demo-card {
+    flex: 0 1 calc(50% - 10px);
+  }
+}
+
 @media (max-width: 480px) {
-  .demos-grid {
-    grid-template-columns: 1fr;
+  .demo-card {
+    flex: 0 1 100%;
   }
 
   .styles-grid {
