@@ -225,11 +225,6 @@
     setActive();
   }
 
-  function decodeAddr() {
-    var p = ['halloween', 'voiceoverguy', 'co.uk'];
-    return p[0] + '@' + p[1] + '.' + p[2];
-  }
-
   function initContactForm() {
     var form = document.getElementById('contactForm');
     var status = document.getElementById('formStatus');
@@ -270,23 +265,37 @@
         return;
       }
 
-      var addr = decodeAddr();
-      var subject = encodeURIComponent('Halloween Voice Enquiry from ' + name);
-      var body = encodeURIComponent(
-        'Name: ' + name + '\n' +
-        'Email: ' + email + '\n' +
-        (company ? 'Company: ' + company + '\n' : '') +
-        '\nMessage:\n' + message
-      );
-
-      window.location.href = 'mail' + 'to:' + addr + '?subject=' + subject + '&body=' + body;
-
-      status.className = 'form-status success';
-      status.textContent = 'Opening your email app... If nothing happens, please email us directly.';
-      form.reset();
-      charNum.textContent = '0';
-      charCount.classList.remove('met');
       submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      status.className = 'form-status';
+      status.textContent = '';
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, company: company, message: message, website: hp })
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.ok) {
+            status.className = 'form-status success';
+            status.textContent = 'Thanks — we\'ll be in touch soon!';
+            form.reset();
+            charNum.textContent = '0';
+            charCount.classList.remove('met');
+          } else {
+            status.className = 'form-status error';
+            status.textContent = data.error || 'Something went wrong. Please try again.';
+          }
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Enquiry';
+        })
+        .catch(function () {
+          status.className = 'form-status error';
+          status.textContent = 'Network error. Please check your connection and try again.';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Enquiry';
+        });
     });
   }
 

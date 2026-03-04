@@ -1,20 +1,20 @@
 # HalloweenVoice.co.uk
 
 ## Overview
-A modern, premium 1-page microsite for HalloweenVoice.co.uk — a professional Halloween voiceover service. Built with Node.js + Express, serving a static front-end with an obfuscated mailto contact form.
+A modern, premium 1-page microsite for HalloweenVoice.co.uk — a professional Halloween voiceover service. Built with Node.js + Express, serving a static front-end with a server-side contact form powered by Resend.
 
 ## Project Architecture
-- **Backend:** Node.js + Express (server.js) — serves static files only
+- **Backend:** Node.js + Express (server.js) — serves static files + POST /api/contact endpoint
 - **Frontend:** Static HTML/CSS/JS served from /public
 - **Data:** JSON files in /data/ for demos and videos (data-driven content)
-- **Contact:** Obfuscated mailto: link (email assembled in JS to hide from scrapers)
+- **Contact:** Server-side email via Resend API with honeypot + rate limiting
 
 ## Folder Structure
 ```
-/server.js              - Express server (static file serving)
+/server.js              - Express server (static files + contact API)
 /public/index.html      - Single-page site with anchored sections
 /public/styles.css      - Full styling (dark theme, responsive)
-/public/script.js       - Audio player, lite YouTube, contact form (mailto)
+/public/script.js       - Audio player, lite YouTube, contact form (fetch)
 /public/audio/          - MP3 demo files
 /public/images/         - Background images and brand assets
 /public/sitemap.xml     - SEO sitemap
@@ -26,14 +26,22 @@ A modern, premium 1-page microsite for HalloweenVoice.co.uk — a professional H
 ## Key Features
 - Sticky nav with anchor links to 7 sections
 - Audio demo cards loaded from demos.json (one-at-a-time playback)
-- Lite YouTube embeds loaded from videos.json (iframe on click)
+- Lite YouTube embeds loaded from videos.json (one-at-a-time, iframe on click)
 - Voice styles grid, Arabella feature section (with faint pumpkin background), credits/testimonials
-- Contact form with honeypot spam trap, obfuscated mailto (halloween@voiceoverguy.co.uk)
+- Contact form: server-side email via Resend, honeypot spam trap, rate limiting (5 req/15 min per IP), 40-char minimum message
 - Full SEO meta tags, Open Graph, Twitter cards
 - Mobile-first responsive design
 
-## Environment Variables Needed
-- None required (mailto-based contact form)
+## Environment Variables
+- **RESEND_API_KEY** (secret, required) — Resend API key for sending contact emails
+- **RESEND_FROM** (optional) — Custom "from" address, defaults to `Halloween Voice <onboarding@resend.dev>`. Set to `Halloween Voice <noreply@halloweenvoice.co.uk>` once domain is verified in Resend.
+- **RESEND_TO** (optional) — Recipient email, defaults to `enquiries@voiceoverguy.co.uk`. Currently set to `guy@wgmi.co.uk` for testing until domain is verified.
+
+## Domain Verification (TODO)
+To send from `noreply@halloweenvoice.co.uk` and deliver to any recipient:
+1. Verify `halloweenvoice.co.uk` domain in Resend dashboard (resend.com/domains)
+2. Set RESEND_FROM to `Halloween Voice <noreply@halloweenvoice.co.uk>`
+3. Remove the RESEND_TO override (so it defaults to enquiries@voiceoverguy.co.uk)
 
 ## Adding Content
 - **New demo:** Upload MP3 to /public/audio/, add object to /data/demos.json
@@ -47,8 +55,9 @@ A modern, premium 1-page microsite for HalloweenVoice.co.uk — a professional H
 - Font: Inter (Google Fonts)
 
 ## Recent Changes
-- 2026-02-18: Switched contact form from server-side Resend/SMTP to obfuscated mailto
+- 2026-03-04: Switched contact form back to server-side Resend API (POST /api/contact) with rate limiting, honeypot, validation
 - 2026-02-18: Moved Guy Harris credit between H1 and subtext, dynamic year count from 2000
+- 2026-02-18: Added purple tapered divider between credit and description
+- 2026-02-18: YouTube one-at-a-time playback + mutual exclusion with audio demos
 - 2026-02-18: Updated Arabella demo to kiss-voxi-mobil-scary-child-voice-arabella-harris.mp3
-- 2026-02-18: Simplified server.js (removed contact API endpoint, rate limiting, email deps)
 - 2026-02-17: Initial build — all sections, styling, JS, server, data files
