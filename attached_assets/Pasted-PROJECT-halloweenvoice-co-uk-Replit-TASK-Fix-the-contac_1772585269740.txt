@@ -1,0 +1,53 @@
+PROJECT: halloweenvoice.co.uk (Replit)
+
+TASK: Fix the contact form so it actually sends emails using Resend.
+
+GOAL:
+When a visitor submits the contact form on https://halloweenvoice.co.uk/
+send an email to: enquiries@voiceoverguy.co.uk
+and show a clear success / error message on the page.
+
+IMPORTANT CONSTRAINTS:
+- Minimal changes. Do NOT refactor the site.
+- Keep the existing form fields and layout.
+- Add a simple backend endpoint + wire the form to it.
+- Use Resend (Node/Express or Next API route — match whatever the project already uses).
+- Store the API key securely in Replit Secrets / env vars (do not hardcode).
+- Add basic spam protection (honeypot + rate limit) and server-side validation.
+
+REQUIRED ENV VAR:
+RESEND_API_KEY = (use Replit Secrets)
+
+EMAIL DETAILS:
+From: "Halloween Voice <noreply@halloweenvoice.co.uk>" (or a verified sending domain you already have in Resend)
+To: enquiries@voiceoverguy.co.uk
+Reply-To: the sender’s email from the form
+Subject: "Halloween Voice Enquiry – {name}" (or similar)
+Body: include all form fields + timestamp + IP (if available) + page URL
+
+IMPLEMENTATION STEPS:
+1) Identify how the site is built (static HTML, Express, Next.js etc.) and where the contact form lives.
+2) Create a backend endpoint:
+   - If Express: POST /api/contact
+   - If Next.js: /api/contact (route handler)
+3) On submit, POST form data (fetch/AJAX) to the endpoint as JSON.
+4) Validate on server:
+   - name required
+   - email required + basic format check
+   - message required
+   - optional phone
+   - reject if honeypot field is filled
+5) Send email using Resend.
+6) Return JSON response { ok: true } or { ok: false, error: "..." }
+7) Frontend: show success message (“Thanks — we’ll reply soon”) and clear error message if failed.
+8) Add simple rate limiting (per IP) to reduce spam.
+
+DELIVERABLES:
+- Tell me which files you changed/added
+- Provide the full code for the backend endpoint
+- Provide the small frontend change needed to submit via fetch and show success/error
+
+DO NOT:
+- Change styling/layout
+- Add heavy dependencies unless necessary
+- Break existing pages
