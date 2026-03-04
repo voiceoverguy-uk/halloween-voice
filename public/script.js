@@ -280,6 +280,10 @@
           if (data.ok) {
             status.className = 'form-status success';
             status.textContent = 'Thanks — we\'ll be in touch soon!';
+            setTimeout(function () {
+              status.className = 'form-status';
+              status.textContent = '';
+            }, 3000);
             form.reset();
             charNum.textContent = '0';
             charCount.classList.remove('met');

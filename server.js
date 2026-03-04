@@ -95,11 +95,13 @@ app.post('/api/contact', async (req, res) => {
       <p style="color:#888;font-size:12px;">Sent from halloweenvoice.co.uk at ${timestamp}</p>
     `;
 
+    const site = req.headers.host || 'Website';
+
     const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM || 'VoiceoverGuy <noreply@voiceoverguy.co.uk>',
       to: 'enquiries@voiceoverguy.co.uk',
       replyTo: email.trim(),
-      subject: `HalloweenVoice.co.uk enquiry – ${safeName}`,
+      subject: `${site} enquiry – ${safeName}`,
       html: htmlBody
     });
 
