@@ -96,10 +96,10 @@ app.post('/api/contact', async (req, res) => {
     `;
 
     const { error } = await resend.emails.send({
-      from: process.env.RESEND_FROM || 'Halloween Voice <onboarding@resend.dev>',
-      to: process.env.RESEND_TO || 'enquiries@voiceoverguy.co.uk',
+      from: process.env.RESEND_FROM || 'VoiceoverGuy <noreply@voiceoverguy.co.uk>',
+      to: 'enquiries@voiceoverguy.co.uk',
       replyTo: email.trim(),
-      subject: `Halloween Voice Enquiry – ${safeName}`,
+      subject: `HalloweenVoice.co.uk enquiry – ${safeName}`,
       html: htmlBody
     });
 

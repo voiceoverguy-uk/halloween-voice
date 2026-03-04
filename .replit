@@ -48,4 +48,4 @@ externalPort = 80
 [userenv]
 
 [userenv.shared]
-RESEND_TO = "guy@wgmi.co.uk"
+RESEND_FROM = "VoiceoverGuy <noreply@voiceoverguy.co.uk>"

@@ -34,14 +34,7 @@ A modern, premium 1-page microsite for HalloweenVoice.co.uk — a professional H
 
 ## Environment Variables
 - **RESEND_API_KEY** (secret, required) — Resend API key for sending contact emails
-- **RESEND_FROM** (optional) — Custom "from" address, defaults to `Halloween Voice <onboarding@resend.dev>`. Set to `Halloween Voice <noreply@halloweenvoice.co.uk>` once domain is verified in Resend.
-- **RESEND_TO** (optional) — Recipient email, defaults to `enquiries@voiceoverguy.co.uk`. Currently set to `guy@wgmi.co.uk` for testing until domain is verified.
-
-## Domain Verification (TODO)
-To send from `noreply@halloweenvoice.co.uk` and deliver to any recipient:
-1. Verify `halloweenvoice.co.uk` domain in Resend dashboard (resend.com/domains)
-2. Set RESEND_FROM to `Halloween Voice <noreply@halloweenvoice.co.uk>`
-3. Remove the RESEND_TO override (so it defaults to enquiries@voiceoverguy.co.uk)
+- **RESEND_FROM** (env var) — Sender address. Set to `VoiceoverGuy <noreply@voiceoverguy.co.uk>` (verified domain). Defaults to same if not set.
 
 ## Adding Content
 - **New demo:** Upload MP3 to /public/audio/, add object to /data/demos.json
