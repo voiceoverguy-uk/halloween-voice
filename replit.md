@@ -42,7 +42,7 @@ A modern, premium 1-page microsite for HalloweenVoice.co.uk — a professional H
 
 ## Branding
 - Background: #0b0b10 (near-black)
-- Primary accent: #d42027 (red)
+- Primary accent: #9C060B (deep red)
 - Secondary accent: #7c3aed (purple, used sparingly for glows)
 - Text: off-white/light grey
 - Font: Inter (Google Fonts)
