@@ -804,6 +804,28 @@ body {
   margin-bottom: 6px;
 }
 
+.footer-links {
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.footer-sep {
+  margin: 0 8px;
+  opacity: 0.4;
+}
+
 .hero-credit {
   font-size: 1.05rem;
   color: var(--text-muted);
