@@ -1,6 +1,37 @@
 const express = require('express');
 const path = require('path');
+const https = require('https');
 const { Resend } = require('resend');
+
+const PLACE_ID = 'ChIJL1W4QyVneUgRBV8j4XrOzaM';
+const REVIEWS_FALLBACK = { rating: 5.0, reviewCount: 119 };
+let reviewsCache = null;
+let reviewsCacheTime = 0;
+const CACHE_TTL = 24 * 60 * 60 * 1000;
+
+function fetchGoogleReviews() {
+  return new Promise((resolve) => {
+    const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+    if (!apiKey) return resolve(REVIEWS_FALLBACK);
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=rating,user_ratings_total&key=${apiKey}`;
+    https.get(url, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const json = JSON.parse(data);
+          if (json.status === 'OK' && json.result) {
+            resolve({ rating: json.result.rating, reviewCount: json.result.user_ratings_total });
+          } else {
+            resolve(REVIEWS_FALLBACK);
+          }
+        } catch {
+          resolve(REVIEWS_FALLBACK);
+        }
+      });
+    }).on('error', () => resolve(REVIEWS_FALLBACK));
+  });
+}
 
 const app = express();
 const PORT = 5000;
@@ -20,6 +51,19 @@ app.use('/data', express.static(path.join(__dirname, 'data'), {
     res.setHeader('Content-Type', 'application/json');
   }
 }));
+
+app.get('/api/reviews', async (req, res) => {
+  try {
+    const now = Date.now();
+    if (!reviewsCache || now - reviewsCacheTime > CACHE_TTL) {
+      reviewsCache = await fetchGoogleReviews();
+      reviewsCacheTime = now;
+    }
+    res.json(reviewsCache);
+  } catch {
+    res.json(REVIEWS_FALLBACK);
+  }
+});
 
 const rateMap = new Map();
 const RATE_LIMIT = 5;

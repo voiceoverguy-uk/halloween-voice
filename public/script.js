@@ -308,6 +308,15 @@
     loadDemos();
     loadVideos();
     initContactForm();
+    fetch('/api/reviews')
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var ratingEl = document.getElementById('reviewRating');
+        var countEl = document.getElementById('reviewCount');
+        if (ratingEl && data.rating) ratingEl.textContent = data.rating.toFixed(1);
+        if (countEl && data.reviewCount) countEl.textContent = data.reviewCount;
+      })
+      .catch(function () {});
     var yearEl = document.getElementById('copyrightYear');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     var ageEl = document.getElementById('arabellaAge');
