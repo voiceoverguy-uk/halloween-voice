@@ -283,13 +283,13 @@
             var day = now.getDay();
             var greeting;
             if (day === 5 && hour >= 18) {
-              greeting = 'Have a good evening and weekend';
+              greeting = 'Have a spooky evening and weekend';
             } else if (hour >= 0 && hour < 12) {
-              greeting = 'Have a good morning';
+              greeting = 'Have a spooky morning';
             } else if (hour >= 12 && hour < 18) {
-              greeting = 'Have a good afternoon';
+              greeting = 'Have a spooky afternoon';
             } else {
-              greeting = 'Have a good evening';
+              greeting = 'Have a spooky evening';
             }
             status.className = 'form-status success';
             status.innerHTML = 'Thank you, Guy will respond, usually within a few hours.<br><span class="form-greeting">' + greeting + '</span>';
