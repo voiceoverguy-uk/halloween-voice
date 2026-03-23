@@ -278,12 +278,21 @@
         .then(function (res) { return res.json(); })
         .then(function (data) {
           if (data.ok) {
+            var now = new Date();
+            var hour = now.getHours();
+            var day = now.getDay();
+            var greeting;
+            if (day === 5 && hour >= 18) {
+              greeting = 'Have a good evening and weekend';
+            } else if (hour >= 0 && hour < 12) {
+              greeting = 'Have a good morning';
+            } else if (hour >= 12 && hour < 18) {
+              greeting = 'Have a good afternoon';
+            } else {
+              greeting = 'Have a good evening';
+            }
             status.className = 'form-status success';
-            status.textContent = 'Thanks — we\'ll be in touch soon!';
-            setTimeout(function () {
-              status.className = 'form-status';
-              status.textContent = '';
-            }, 3000);
+            status.innerHTML = 'Thank you, Guy will respond, usually within a few hours.<br><span class="form-greeting">' + greeting + '</span>';
             form.reset();
             charNum.textContent = '0';
             charCount.classList.remove('met');
