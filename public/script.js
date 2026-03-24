@@ -317,6 +317,30 @@
     loadDemos();
     loadVideos();
     initContactForm();
+    var laughsYt = document.querySelector('.laughs-yt');
+    if (laughsYt) {
+      laughsYt.addEventListener('click', function () {
+        if (activeVideoEl && activeVideoEl !== laughsYt) {
+          resetVideo(activeVideoEl);
+        }
+        if (activeVideoEl === laughsYt) return;
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          if (currentPlayBtn) currentPlayBtn.innerHTML = playSVG;
+        }
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/0IhG9vy8G1Q?autoplay=1';
+        iframe.allow = 'autoplay; encrypted-media';
+        iframe.allowFullscreen = true;
+        iframe.style.cssText = 'width:100%;height:100%;border:none;position:absolute;top:0;left:0;';
+        iframe.title = 'Spooky Halloween Laughs for Licencing';
+        laughsYt.style.position = 'relative';
+        laughsYt.innerHTML = '';
+        laughsYt.appendChild(iframe);
+        activeVideoEl = laughsYt;
+      });
+    }
     fetch('/api/reviews')
       .then(function (res) { return res.json(); })
       .then(function (data) {
