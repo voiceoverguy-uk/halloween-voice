@@ -603,6 +603,21 @@ body {
   opacity: 0.8;
 }
 
+.laughs-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.laughs-video-item .lite-youtube:hover .laughs-play-btn {
+  transform: translate(-50%, -50%) scale(1.08);
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.8));
+}
+
 .laughs-vid-label {
   text-align: center;
   margin-top: 10px;
