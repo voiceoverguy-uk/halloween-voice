@@ -603,6 +603,22 @@ body {
   opacity: 0.8;
 }
 
+.laughs-thumb-word {
+  position: absolute;
+  bottom: 12%;
+  left: 6%;
+  font-family: 'Creepster', cursive;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  color: #fff;
+  opacity: 0.18;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  text-shadow: 0 0 30px rgba(156,6,11,0.8), 0 2px 4px rgba(0,0,0,0.9);
+  line-height: 1;
+}
+
 .laughs-play-btn {
   position: absolute;
   top: 50%;
