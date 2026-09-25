@@ -1,0 +1,1 @@
+- [Google Maps mobile review verification](google-maps-mobile-review-verification.md) — headless mobile taps can fail to open tabs even when the official reviews URL renders existing reviews.
