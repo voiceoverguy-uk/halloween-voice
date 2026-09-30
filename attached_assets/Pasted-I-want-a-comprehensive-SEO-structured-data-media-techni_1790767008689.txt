@@ -1,0 +1,464 @@
+I want a comprehensive SEO, structured-data, media, technical and conversion audit of:
+
+https://www.halloweenvoice.co.uk
+
+This is an AUDIT / PLAN ONLY.
+
+DO NOT change code.
+DO NOT build.
+DO NOT publish, deploy, sync or commit.
+DO NOT rewrite visible copy yet.
+
+HalloweenVoice.co.uk is a specialist commercial website for professional Halloween, horror, scary and character voiceover by UK voice artist Guy Harris.
+
+The site has strong original audio/video demos and genuine professional Halloween/horror credits. These are valuable assets and must not be removed, diluted or replaced with generic SEO copy.
+
+The objective is to understand why the site is currently generating relatively few Halloween enquiries despite strong demos, professional credits and a purpose-built website, and identify evidence-backed improvements before the 2026 Halloween season.
+
+--------------------------------------------------
+1. FULL SITE INVENTORY
+--------------------------------------------------
+
+Crawl/audit every public indexable route.
+
+Report for each page:
+
+- URL
+- HTTP status
+- indexability
+- canonical
+- title
+- meta description
+- H1
+- major visible content
+- word/content depth where useful
+- internal links
+- structured-data types
+- audio/video assets
+- images
+- CTA/conversion path
+- sitemap inclusion
+
+Identify:
+
+- duplicate pages
+- thin pages
+- orphaned pages
+- accidental indexable utility/preview/test pages
+- redirects
+- redirect chains
+- broken internal links
+- conflicting canonicals
+- incorrect sitemap entries
+
+Do not create or remove pages.
+
+--------------------------------------------------
+2. INITIAL HTML VS JAVASCRIPT
+--------------------------------------------------
+
+For important pages, inspect BOTH:
+
+A. initial server-delivered HTML
+B. rendered page after JavaScript
+
+Determine whether Google/search systems receive useful:
+
+- H1
+- page copy
+- demo information
+- credits
+- CTA
+- links
+
+without depending unnecessarily on client-side rendering.
+
+Flag any important content that exists only after JavaScript.
+
+Do not change rendering architecture during this audit.
+
+--------------------------------------------------
+3. SEARCH INTENT / PAGE TARGETING
+--------------------------------------------------
+
+Assess how the current site maps naturally to commercial searches such as:
+
+Halloween voiceover
+Halloween voice
+Halloween voice actor
+scary voiceover
+scary voice actor
+horror voiceover
+horror voice actor
+spooky voice
+evil voice
+Halloween character voices
+haunted attraction voiceover
+theme park Halloween voice
+Halloween radio voiceover
+Halloween trailer voice
+
+Also inspect relevant UK wording and any other genuine buyer-intent phrases supported by the existing content.
+
+Do NOT keyword-stuff.
+
+Do NOT propose a separate page for every keyword.
+
+Identify:
+
+- which existing page best serves each useful intent
+- intents already covered well
+- genuine gaps
+- pages targeting substantially the same intent
+- title/H1/content mismatches
+- whether the homepage clearly communicates the primary commercial proposition
+
+Do not promise rankings.
+
+--------------------------------------------------
+4. GUY HARRIS / PROFESSIONAL AUTHORITY
+--------------------------------------------------
+
+Inventory all genuine professional proof currently present on the site.
+
+This may include Halloween/horror work for recognised clients, attractions, broadcasters, radio, trailers, games and other campaigns.
+
+Distinguish:
+
+- verifiable professional credits
+- testimonials
+- portfolio examples
+- promotional claims
+- generic marketing copy
+
+Assess whether the strongest genuine proof is sufficiently prominent for both users and search engines.
+
+Do NOT invent clients, credits, awards, dates, campaigns or relationships.
+
+Do NOT remove or rewrite existing promotional claims in this audit.
+
+--------------------------------------------------
+5. AUDIO AUDIT
+--------------------------------------------------
+
+Audio demos are a primary product asset.
+
+Inventory EVERY audio file/player.
+
+For each determine where evidence allows:
+
+- page
+- visible title
+- file URL
+- file type
+- accessibility
+- duration measured from the actual file
+- whether playable
+- whether indexable/discoverable
+- associated visible description
+- current AudioObject schema if any
+- schema name
+- contentUrl
+- encodingFormat
+- duration
+- uploadDate
+- creator
+- publisher
+- thumbnail/image if used
+- duplicate audio used across pages
+
+Do not guess publication dates.
+
+Do not infer creator/publisher/production ownership merely because the file is hosted here.
+
+Flag:
+
+- invented/fallback dates
+- inaccurate demo identities
+- schema/visible-copy mismatches
+- duplicate schema
+- missing useful factual metadata
+- broken media
+
+Where possible measure actual audio duration from the file rather than guessing.
+
+DO NOT change audio files or players.
+
+--------------------------------------------------
+6. VIDEO AUDIT
+--------------------------------------------------
+
+Inventory EVERY video and YouTube embed.
+
+For each record:
+
+- page
+- YouTube/video ID
+- visible title
+- actual provider title
+- provider/uploader
+- genuine provider publication date where directly evidenced
+- thumbnail
+- embed URL
+- current VideoObject
+- current schema name/date/thumbnail/embedUrl
+- creator/publisher attribution
+- duplicate usage
+
+Do not guess dates.
+
+Uploader does NOT automatically equal creator or publisher.
+
+Flag fake/fallback dates, mismatched titles, thumbnails, identities or attribution.
+
+Preserve lazy/click-to-load behaviour.
+
+--------------------------------------------------
+7. STRUCTURED DATA / ENTITY GRAPH
+--------------------------------------------------
+
+Inventory ALL JSON-LD/schema across the site.
+
+Check:
+
+- WebSite
+- WebPage
+- Organization
+- LocalBusiness / ProfessionalService
+- Person
+- BreadcrumbList
+- AudioObject
+- VideoObject
+- Review
+- AggregateRating
+- FAQPage
+- any other types
+
+Check factual accuracy and consistency.
+
+Look specifically for:
+
+- invented dates
+- invented ratings
+- hard-coded review counts
+- unsupported testimonial ratings
+- self-serving review markup
+- duplicate/conflicting entities
+- missing/stable @id relationships
+- inconsistent Person/business/site identity
+- inaccurate sameAs
+- schema properties not supported by visible/evidenced content
+
+Do NOT add schema merely to increase schema quantity.
+
+Do NOT invent business address, telephone, priceRange or other optional properties just to eliminate warnings.
+
+--------------------------------------------------
+8. GOOGLE REVIEWS
+--------------------------------------------------
+
+Audit the current Google reviews implementation carefully.
+
+Determine:
+
+- visible rating
+- visible review count
+- source of the values
+- whether values update automatically
+- whether any number is hard-coded
+- caching behaviour
+- fallback behaviour
+- official Google reviews link
+- structured Review/AggregateRating markup
+
+I have recently seen different counts associated with the site, so establish the actual implementation rather than assuming the displayed number is current.
+
+Preserve genuine visible reviews/social proof.
+
+Do not invent fallback rating/count values.
+
+Do not change the implementation during this audit.
+
+--------------------------------------------------
+9. EXPERIENCE / AGE BUG
+--------------------------------------------------
+
+Investigate any crawlable/rendered wording resembling:
+
+"Guy Harris, UK male voiceover artist (+ years)."
+
+Determine what value is supposed to appear, why it can render without the number, and whether this occurs in initial HTML, rendered HTML, metadata or schema.
+
+Report the cause and safest correction.
+
+DO NOT simply hard-code an age/experience number unless the existing architecture clearly establishes the intended source.
+
+--------------------------------------------------
+10. CONVERSION / ENQUIRIES
+--------------------------------------------------
+
+Review the site as a prospective buyer, not just a crawler.
+
+Assess:
+
+- how quickly a visitor understands what Guy offers
+- how quickly they can hear the strongest demo
+- credibility/professional proof above or near the fold
+- CTA clarity
+- quote/contact friction
+- mobile CTA experience
+- whether important commercial information is buried
+- whether users are sent unnecessarily between pages
+- whether audio/video interaction creates friction
+- whether there is a clear route from demo -> credibility -> enquiry
+
+Do NOT redesign the site.
+
+Recommend only evidence-based improvements.
+
+--------------------------------------------------
+11. HALLOWEENVOICE.CO.UK VS VOICEOVERGUY.CO.UK
+--------------------------------------------------
+
+For comparison only, inspect these public VoiceoverGuy pages where useful:
+
+https://www.voiceoverguy.co.uk/halloween-voice
+
+and any Halloween/spooky pages directly linked from or clearly related to it.
+
+Do NOT modify VoiceoverGuy.
+
+Assess:
+
+- substantial content overlap
+- competing titles/H1s
+- whether both domains appear to target exactly the same primary intent
+- cross-domain links
+- canonical mistakes
+- duplicated copy
+- whether HalloweenVoice is clearly positioned as the specialist site
+- whether VoiceoverGuy could later act as Guy's authority/portfolio hub feeding the specialist Halloween site
+
+Do NOT recommend deleting or consolidating VoiceoverGuy pages solely because there are several Halloween pages.
+
+Character-specific pages such as Dracula, Ghost Face, Joker, screams, Scarefest etc may legitimately serve distinct intent.
+
+Evidence is required before recommending consolidation.
+
+--------------------------------------------------
+12. IMAGES
+--------------------------------------------------
+
+Audit major commercial/portfolio images for:
+
+- dimensions
+- loading behaviour
+- descriptive alt text
+- duplicate/generic alt text
+- unnecessarily large files
+- image relevance
+- factual client/character descriptions
+
+Do not keyword-stuff alt text.
+
+--------------------------------------------------
+13. PERFORMANCE / MOBILE
+--------------------------------------------------
+
+Review performance architecture conservatively.
+
+Look for actual issues such as:
+
+- unnecessary eager video/audio loading
+- excessive third-party resources
+- large images
+- layout shift
+- mobile overflow
+- blocked CTA
+- unnecessary client rendering
+- accessibility issues
+
+Do not recommend speculative optimisation without evidence.
+
+Do not change dependencies.
+
+--------------------------------------------------
+14. SEASONAL / 2026 READINESS
+--------------------------------------------------
+
+Assess whether the site is ready for October 2026.
+
+Check for:
+
+- stale years
+- old seasonal references
+- outdated availability wording
+- broken historical references
+- outdated review counts
+- inaccurate experience-year calculations
+- metadata that implies an old season
+- content that unnecessarily makes evergreen pages appear stale
+
+Do not add "2026" everywhere simply for freshness.
+
+Evergreen content should remain evergreen where appropriate.
+
+--------------------------------------------------
+15. AI / SEARCH READINESS
+--------------------------------------------------
+
+Assess whether the site clearly communicates:
+
+- who Guy Harris is
+- what Halloween voice services he provides
+- his genuine experience/credits
+- what demos represent
+- how to hire/contact him
+- relationship between Person, business/site and media
+
+Do not invent special "AI schema".
+
+Do not add speculative files or markup merely because they are fashionable.
+
+--------------------------------------------------
+16. OUTPUT
+--------------------------------------------------
+
+Produce a detailed audit report BEFORE proposing implementation.
+
+Group findings:
+
+CRITICAL
+HIGH
+MEDIUM
+LOW
+NO CHANGE RECOMMENDED
+
+For every recommended change state:
+
+- evidence/problem
+- affected URL/file
+- proposed correction
+- SEO/user/conversion reason
+- risk
+- whether visible content changes
+- whether owner confirmation is required
+
+Then propose a conservative implementation sequence:
+
+PASS 1 — factual/technical corrections
+PASS 2 — media/schema
+PASS 3 — content/search intent/conversion ONLY if evidence justifies it
+
+Do not implement any pass.
+
+Also explicitly list things that are already good and should be LEFT ALONE.
+
+STOP AFTER THE AUDIT/PLAN.
+
+No code changes.
+No Build.
+No publish.
+No deployment.
+No sync.
+No commit.
