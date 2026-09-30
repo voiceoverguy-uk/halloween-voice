@@ -1,0 +1,370 @@
+Create a PLAN ONLY for:
+
+HALLOWEENVOICE PASS 1 — FACTUAL & TECHNICAL CORRECTIONS
+
+This follows the completed evidence-based HalloweenVoice audit.
+
+DO NOT implement yet.
+DO NOT build yet.
+DO NOT publish, deploy, sync or commit.
+Present the implementation plan for approval first.
+
+The objective of Pass 1 is to correct factual, canonical, routing, review, age/experience, sitemap and small accessibility/technical defects WITHOUT redesigning the site, rewriting its marketing copy, changing its media architecture or performing the separate media/schema work reserved for Pass 2.
+
+Preserve the existing visual identity, demos, videos, testimonials, professional credits, navigation, contact design and Halloween character of the site.
+
+--------------------------------------------------
+1. PRIMARY HOST / CANONICAL CONSISTENCY
+--------------------------------------------------
+
+The audit established:
+
+- https://halloweenvoice.co.uk/ is the final 200 URL.
+- https://www.halloweenvoice.co.uk/ redirects to the apex/non-www host.
+- The canonical currently points to the redirecting www URL.
+- sitemap/robots and some JSON-LD URLs also favour www.
+
+Use:
+
+https://halloweenvoice.co.uk/
+
+as the primary canonical host.
+
+Plan to align, where applicable:
+
+- canonical URL
+- WebSite URL/@id
+- WebPage URL/@id
+- Organization/site URLs where they refer to HalloweenVoice itself
+- media URLs belonging to HalloweenVoice
+- sitemap URL
+- robots sitemap declaration
+- OG/social page URL where appropriate
+
+Preserve working inbound www URLs and their redirect to the apex host.
+
+Do NOT unnecessarily change unrelated external URLs such as VoiceoverGuy, Google reviews, YouTube or social profiles.
+
+Do NOT introduce redirect chains.
+
+--------------------------------------------------
+2. REAL 404 HANDLING
+--------------------------------------------------
+
+The audit established that arbitrary/invalid paths currently fall through to homepage HTML with HTTP 200.
+
+Examples included:
+
+/nonexistent
+/about
+/favicon.ico
+GET /api/contact
+
+Plan conservative routing changes so:
+
+- genuine public assets continue working
+- /data/*.json continues working
+- /api/reviews continues working
+- intended POST /api/contact behaviour remains working
+- homepage continues working
+- genuine favicon/icon routes continue working
+- unknown paths return a genuine HTTP 404
+- inappropriate HTTP methods on API routes do not return homepage HTML
+
+Do not invent new public pages.
+
+Check for any legitimate routes before changing the catch-all.
+
+--------------------------------------------------
+3. GOOGLE REVIEWS — TRUTHFUL DYNAMIC DISPLAY
+--------------------------------------------------
+
+The current Google Places source is the VoiceoverGuy listing.
+
+Owner confirms it is acceptable for HalloweenVoice to use these genuine VoiceoverGuy reviews as Guy Harris social proof.
+
+Preferred attribution wording:
+
+"Rated 5.0 on Google by 124 VoiceoverGuy clients"
+
+The exact number/rating must remain dynamic and must NOT be hard-coded as 124.
+
+Use the same evidence-first principles successfully used on SantaGuy:
+
+- source genuine current rating/count from the existing Google Places integration
+- preserve the official existing Google reviews link
+- preserve the visual review/social-proof treatment as closely as possible
+- cache validated successful provider values sensibly
+- do not use a permanent invented/stale numerical fallback
+- do not silently substitute the old 5.0/119 values when Google is unavailable
+- do not refresh the last-known-success timestamp on a failed provider request
+- if a real last-known value is retained temporarily, clearly distinguish stale/unavailable state
+- if no trustworthy value exists, show a neutral unavailable/loading state rather than inventing numbers
+- ensure a future change from 124 to 125 etc appears without a code edit
+
+Do NOT add Review or AggregateRating schema.
+
+Do NOT represent HalloweenVoice as having its own separate Google Business Profile.
+
+The visible wording should make the relationship clear:
+these are VoiceoverGuy client reviews for Guy Harris.
+
+Before implementation, state exactly how fresh/stale/unavailable states will behave.
+
+--------------------------------------------------
+4. GUY HARRIS EXPERIENCE YEARS
+--------------------------------------------------
+
+The audit established that initial HTML currently contains:
+
+"Guy Harris, UK male voiceover artist (+ years)."
+
+JavaScript then calculates current year minus 2000.
+
+Owner confirms the site may continue using 2000 as the established start-year source for this experience calculation.
+
+Plan a single maintainable calculation so the visible experience value updates automatically by calendar year.
+
+Requirements:
+
+- no broken "(+ years)" wording in initial HTML
+- avoid maintaining conflicting hard-coded values in multiple locations
+- metadata and visible wording must remain consistent
+- preserve the existing intended wording/style as much as possible
+
+If true server-side dynamic generation is inappropriate for this static architecture, propose the safest build/server-generated solution and explain how initial HTML will remain complete.
+
+Do NOT change unrelated biography/marketing claims.
+
+--------------------------------------------------
+5. ARABELLA — DYNAMIC AGE FROM DOB
+--------------------------------------------------
+
+Owner confirms Arabella's date of birth for this site's age calculation is:
+
+4 June 2016
+
+Her displayed age must be calculated from the full date, NOT merely current year minus birth year.
+
+Therefore:
+
+- she is 10 through 3 June 2027
+- she becomes 11 on 4 June 2027
+- future birthdays should update automatically on 4 June each year
+
+Correct all currently inconsistent age references, including the demo-card title that currently says:
+
+"Arabella 9 years – Spooky child voice"
+
+while the rendered copy currently calculates 10.
+
+Keep age references consistent wherever the site intentionally displays her current age.
+
+Important:
+
+- the initial HTML should not contain broken/blank age wording
+- JavaScript/rendered wording must not disagree with initial HTML
+- do not create multiple independent age values that can drift
+- use one authoritative DOB-based age calculation
+- preserve the existing demo/audio identity and VOXI/KISS wording unless another factual issue is identified
+
+Do not expose the DOB in new visible copy merely to explain the calculation.
+
+--------------------------------------------------
+6. COPYRIGHT YEAR
+--------------------------------------------------
+
+The initial HTML currently contains an empty copyright-year span populated by JavaScript.
+
+Plan a small correction so the initial delivered page has a valid current year while retaining automatic yearly maintenance.
+
+Do not redesign the footer.
+
+--------------------------------------------------
+7. SITEMAP / ROBOTS TRUTHFULNESS
+--------------------------------------------------
+
+The sitemap currently:
+
+- lists the redirecting www homepage
+- has lastmod 2025-01-01 without established significant-change evidence
+
+Plan to:
+
+- list the final canonical apex URL
+- align robots.txt sitemap declaration
+- remove unsupported/stale lastmod rather than inventing a new date, unless the project has a reliable factual source for significant modification dates
+
+There is only one intentional indexable HTML page.
+
+Do not add JSON/API/media/404 routes to the sitemap.
+
+--------------------------------------------------
+8. ENTITY IDs / STRUCTURED-DATA HOST CONSISTENCY
+--------------------------------------------------
+
+This pass may correct host/entity consistency but must NOT become the full media-schema pass.
+
+Plan stable HalloweenVoice entity IDs based on the final apex host, for example:
+
+https://halloweenvoice.co.uk/#website
+https://halloweenvoice.co.uk/#webpage
+
+For the site/brand Organization, propose a stable ID only if the existing semantics remain factually appropriate.
+
+For Guy Harris Person:
+
+- preserve his identity
+- connect existing factual relationships consistently
+- do not invent employment/legal-company relationships
+- do not invent sameAs
+- do not add address, telephone, priceRange or other optional business properties merely to fill schema fields
+
+The audit noted that "Halloween Voice" may function as a specialist brand/service rather than a separate legal employing organisation.
+
+Do not silently assert a legal/employment relationship that has not been established.
+
+If the existing worksFor relationship is semantically questionable, identify the safest factual representation in the plan before implementation.
+
+IMPORTANT:
+Do NOT correct AudioObject/VideoObject dates, durations, duplicate video entities or media identities in Pass 1.
+Those belong to Pass 2.
+
+--------------------------------------------------
+9. SMALL ACCESSIBILITY / TECHNICAL FIXES
+--------------------------------------------------
+
+Include only low-risk defects directly evidenced by the audit:
+
+A. Mobile menu:
+- maintain correct aria-expanded state
+- add appropriate aria-controls relationship
+
+B. Video thumbnail controls:
+- plan keyboard-operable semantic controls without changing the visual design or click-to-load YouTube behaviour
+
+C. Form status:
+- provide an appropriate accessible live-status mechanism if it can be done without changing normal visible presentation
+
+D. Apple touch icon:
+- correct the mismatch between declared 180x180 size and actual 48x48 file.
+- Prefer supplying/correctly referencing an appropriate 180x180 icon if an existing suitable source asset allows it.
+- Do not fabricate a poor-quality upscaled asset merely to satisfy dimensions; report if a proper source is unavailable.
+
+Do NOT change the audio seek-bar interaction in this pass unless the correction is extremely isolated and demonstrably safe. It can remain a later accessibility task.
+
+--------------------------------------------------
+10. CONTACT FORM — VALIDATION ONLY THIS PASS
+--------------------------------------------------
+
+Do NOT redesign the contact form yet.
+
+Do NOT change the 40-character message minimum yet.
+
+The audit could not verify actual email delivery.
+
+Before any future conversion changes, establish whether the current form works end-to-end.
+
+Plan tests for:
+
+- required-field behaviour
+- valid submission path
+- server response
+- recipient configuration without exposing secrets
+- error handling
+
+Do NOT send a real production enquiry automatically during implementation unless explicit approval is given.
+
+The 40-character minimum is reserved for later conversion review.
+
+--------------------------------------------------
+11. PROTECTED / OUT OF SCOPE
+--------------------------------------------------
+
+Do NOT:
+
+- redesign the site
+- rewrite the hero
+- rewrite SEO copy
+- add keyword pages
+- remove existing demos
+- remove professional credits
+- alter testimonials
+- alter audio files
+- alter YouTube videos
+- change lazy/click-to-load behaviour
+- add new reviews
+- add Review/AggregateRating markup
+- add LocalBusiness merely for schema quantity
+- add speculative AI schema
+- change VoiceoverGuy.co.uk
+- consolidate the two websites
+- delete VoiceoverGuy Halloween/character pages
+- change dependencies unless absolutely necessary
+- implement Pass 2 media/schema work
+- publish/deploy/sync/commit
+
+Preserve the site's existing Halloween personality.
+
+--------------------------------------------------
+12. VALIDATION PLAN
+--------------------------------------------------
+
+Before implementation, specify regression checks that will prove:
+
+- apex homepage returns 200
+- www redirects cleanly to apex
+- canonical equals final 200 URL
+- sitemap contains only intended canonical HTML page
+- robots references correct sitemap
+- representative unknown routes return 404
+- intended JSON/API/assets remain available
+- contact POST route remains intact
+- no accidental homepage catch-all for invalid routes
+- current genuine review count can change without code edits
+- no hard-coded 119/124 fallback masquerades as live data
+- review link remains correct
+- initial HTML contains complete experience wording
+- rendered experience agrees with initial HTML
+- Arabella's age calculation correctly handles:
+  * 3 June 2027 = 10
+  * 4 June 2027 = 11
+  * later birthdays automatically
+- no stale "Arabella 9 years" wording remains
+- copyright year is complete in initial HTML
+- JSON-LD parses and entity host IDs are consistent
+- all existing audio/video players remain present and functional
+- click-to-load video behaviour remains unchanged
+- desktop/mobile appearance remains materially unchanged
+- existing contact form UI remains unchanged
+- no protected marketing copy or professional credits are altered
+
+Run existing tests plus focused dependency-free regression tests where appropriate.
+
+--------------------------------------------------
+13. OUTPUT NOW
+--------------------------------------------------
+
+PLAN ONLY.
+
+Return:
+
+1. exact files expected to change
+2. exact proposed behaviour for each section above
+3. review fresh/stale/unavailable logic
+4. experience-year implementation approach
+5. Arabella DOB-based age implementation approach
+6. proposed entity-ID relationships
+7. 404/routing approach
+8. accessibility approach
+9. regression-test plan
+10. any point requiring owner confirmation
+
+STOP after presenting the plan.
+
+Do not implement.
+Do not Build.
+Do not publish.
+Do not deploy.
+Do not sync.
+Do not commit.
