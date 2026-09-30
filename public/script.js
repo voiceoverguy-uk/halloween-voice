@@ -1,9 +1,6 @@
 (function () {
   'use strict';
 
-  const voYearsEl = document.getElementById('voYears');
-  if (voYearsEl) voYearsEl.textContent = new Date().getFullYear() - 2000;
-
   let currentAudio = null;
   let currentPlayBtn = null;
 
@@ -106,11 +103,16 @@
 
         var arabellaCard = document.getElementById('arabellaDemoCard');
         if (arabellaCard) {
-          arabellaCard.appendChild(createAudioCard({
-            title: 'Arabella 9 years \u2013 Spooky child voice',
-            description: 'Creepy child character \u2013 VOXI / KISS style',
-            file: '/audio/kiss-voxi-mobil-scary-child-voice-arabella-harris.mp3'
-          }));
+          var age = document.getElementById('arabellaAge');
+          if (age && /^\d+$/.test(age.textContent.trim())) {
+            arabellaCard.appendChild(createAudioCard({
+              title: 'Arabella ' + age.textContent.trim() + ' years \u2013 Spooky child voice',
+              description: 'Creepy child character \u2013 VOXI / KISS style',
+              file: '/audio/kiss-voxi-mobil-scary-child-voice-arabella-harris.mp3'
+            }));
+          } else {
+            console.error('Server-rendered Arabella age is unavailable');
+          }
         }
       })
       .catch(function (err) {
@@ -124,13 +126,10 @@
   }
 
   var activeVideoEl = null;
+  var posterMarkup = new WeakMap();
 
   function resetVideo(liteYt) {
-    var vid = liteYt.dataset.id;
-    var title = liteYt.dataset.title || 'Video';
-    liteYt.innerHTML =
-      '<img src="https://img.youtube.com/vi/' + vid + '/hqdefault.jpg" alt="' + title + '" loading="lazy">' +
-      '<div class="play-overlay"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>';
+    liteYt.innerHTML = posterMarkup.get(liteYt);
   }
 
   function createVideoCard(video) {
@@ -143,12 +142,15 @@
     card.innerHTML =
       '<div class="lite-youtube" data-id="' + id + '" data-title="' + (video.title || 'Video') + '">' +
         '<img src="' + thumbUrl + '" alt="' + (video.title || 'Video') + '" loading="lazy">' +
-        '<div class="play-overlay"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>' +
+        '<button type="button" class="video-trigger" aria-label="Play ' + (video.title || 'Video') + ' video">' +
+          '<span class="play-overlay" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></span>' +
+        '</button>' +
       '</div>' +
       (video.title ? '<div class="video-card-title">' + video.title + '</div>' : '');
 
     var liteYt = card.querySelector('.lite-youtube');
-    liteYt.addEventListener('click', function () {
+    liteYt.addEventListener('click', function (event) {
+      if (!event.target.closest('.video-trigger')) return;
       if (activeVideoEl && activeVideoEl !== liteYt) {
         resetVideo(activeVideoEl);
       }
@@ -160,6 +162,7 @@
         currentAudio = null;
         currentPlayBtn = null;
       }
+      posterMarkup.set(liteYt, liteYt.innerHTML);
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -193,11 +196,13 @@
 
     toggle.addEventListener('click', function () {
       links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(links.classList.contains('open')));
     });
 
     links.addEventListener('click', function (e) {
       if (e.target.tagName === 'A') {
         links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -319,7 +324,8 @@
     initContactForm();
     function initStandaloneVideo(el) {
       if (!el) return;
-      el.addEventListener('click', function () {
+      el.addEventListener('click', function (event) {
+        if (!event.target.closest('.video-trigger')) return;
         if (activeVideoEl && activeVideoEl !== el) {
           resetVideo(activeVideoEl);
         }
@@ -328,7 +334,10 @@
           currentAudio.pause();
           currentAudio.currentTime = 0;
           if (currentPlayBtn) currentPlayBtn.innerHTML = playSVG;
+          currentAudio = null;
+          currentPlayBtn = null;
         }
+        posterMarkup.set(el, el.innerHTML);
         var iframe = document.createElement('iframe');
         iframe.src = 'https://www.youtube.com/embed/' + el.dataset.id + '?autoplay=1';
         iframe.allow = 'autoplay; encrypted-media';
@@ -343,24 +352,41 @@
     }
     initStandaloneVideo(document.querySelector('.laughs-yt'));
     initStandaloneVideo(document.querySelector('.laughs-yt2'));
+    var reviewsText = document.getElementById('reviewsText');
+    var reviewStars = document.getElementById('reviewStars');
+    function strongNumber(value) {
+      var strong = document.createElement('strong');
+      strong.textContent = value;
+      return strong;
+    }
+    function renderReviews(data) {
+      if (!reviewsText || !reviewStars) return;
+      reviewStars.hidden = true;
+      reviewsText.textContent = 'VoiceoverGuy client reviews on Google are temporarily unavailable.';
+      if (!data || (data.status !== 'fresh' && data.status !== 'stale') ||
+          typeof data.rating !== 'number' || data.rating <= 0 || data.rating > 5 ||
+          !Number.isSafeInteger(data.reviewCount) || data.reviewCount < 1) return;
+
+      var parts = [];
+      if (data.status === 'stale') {
+        var checked = new Date(data.checkedAt);
+        if (isNaN(checked.getTime())) return;
+        var date = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Europe/London', day: 'numeric', month: 'long', year: 'numeric'
+        }).format(checked);
+        parts.push('Last verified ' + date + ': rated ');
+      } else {
+        parts.push('Rated ');
+      }
+      parts.push(strongNumber(data.rating.toFixed(1)), ' on Google by ',
+        strongNumber(data.reviewCount), ' VoiceoverGuy clients');
+      if (data.status === 'stale') parts.push(' (current Google data temporarily unavailable).');
+      reviewsText.replaceChildren.apply(reviewsText, parts);
+      reviewStars.hidden = data.rating !== 5;
+    }
     fetch('/api/reviews')
       .then(function (res) { return res.json(); })
-      .then(function (data) {
-        var ratingEl = document.getElementById('reviewRating');
-        var countEl = document.getElementById('reviewCount');
-        if (ratingEl && data.rating) ratingEl.textContent = data.rating.toFixed(1);
-        if (countEl && data.reviewCount) countEl.textContent = data.reviewCount;
-      })
-      .catch(function () {});
-    var yearEl = document.getElementById('copyrightYear');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-    var ageEl = document.getElementById('arabellaAge');
-    if (ageEl) {
-      var bday = new Date(2016, 5, 4);
-      var now = new Date();
-      var age = now.getFullYear() - bday.getFullYear();
-      if (now.getMonth() < bday.getMonth() || (now.getMonth() === bday.getMonth() && now.getDate() < bday.getDate())) age--;
-      ageEl.textContent = age;
-    }
+      .then(renderReviews)
+      .catch(function () { renderReviews({ status: 'unavailable' }); });
   });
 })();
