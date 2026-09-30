@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { getSiteFacts, renderHome } = require('../lib/site-facts');
+const { renderMedia } = require('../lib/media-catalog');
 const {
   createReviewsService, FRESH_FOR, KEEP_STALE_FOR, RETRY_AFTER
 } = require('../lib/google-reviews');
@@ -32,7 +33,7 @@ test('UK calendar dates drive initial experience, DOB-based age and copyright', 
 });
 
 test('schema describes a brand, Guy and the site without an invented employer', () => {
-  const html = renderHome(source, new Date('2026-09-30T12:00:00Z'));
+  const html = renderMedia(renderHome(source, new Date('2026-09-30T12:00:00Z')), 10);
   const jsonLd = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   const entity = (type) => jsonLd.find((node) => node['@type'] === type);
   assert.equal(entity('Organization'), undefined);
@@ -48,7 +49,7 @@ test('schema describes a brand, Guy and the site without an invented employer', 
   assert.match(html, /property="og:url" content="https:\/\/halloweenvoice\.co\.uk\/"/);
   assert.match(html, /class="reviews-stars" id="reviewStars" aria-hidden="true" hidden/);
   assert.match(html, /aria-controls="navLinks" aria-expanded="false"/);
-  assert.equal((html.match(/class="video-trigger"/g) || []).length, 2);
+  assert.equal((html.match(/class="video-trigger"/g) || []).length, 6);
   assert.match(html, /id="formStatus" role="status" aria-live="polite"/);
 });
 

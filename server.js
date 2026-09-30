@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { Resend } = require('resend');
-const { renderHome } = require('./lib/site-facts');
+const { getSiteFacts, renderHome } = require('./lib/site-facts');
 const { createReviewsService } = require('./lib/google-reviews');
+const { renderMedia } = require('./lib/media-catalog');
 
 const app = express();
 const PORT = 5000;
@@ -19,7 +20,8 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.set('Cache-Control', 'no-store');
-  res.type('html').send(renderHome(homepageTemplate));
+  const now = new Date();
+  res.type('html').send(renderMedia(renderHome(homepageTemplate, now), getSiteFacts(now).arabellaAge));
 });
 app.get('/index.html', (req, res) => res.redirect(308, '/'));
 

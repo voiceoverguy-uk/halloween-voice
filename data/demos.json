@@ -28,5 +28,11 @@
     "title": "Halloween & Scary Laughs",
     "description": "Available to licence. Get in touch",
     "file": "/audio/halloween-laughs-guy-harris.mp3"
+  },
+  {
+    "title": "Arabella – Spooky child voice",
+    "description": "Creepy child character – VOXI / KISS style",
+    "file": "/audio/kiss-voxi-mobil-scary-child-voice-arabella-harris.mp3",
+    "placement": "arabella"
   }
 ]

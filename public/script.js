@@ -14,24 +14,10 @@
     return m + ':' + (sec < 10 ? '0' : '') + sec;
   }
 
-  function createAudioCard(demo) {
-    const card = document.createElement('div');
-    card.className = 'demo-card';
-
+  function initAudioCard(card) {
     const audio = new Audio();
     audio.preload = 'metadata';
-    audio.src = demo.file;
-
-    card.innerHTML =
-      '<h3>' + demo.title + '</h3>' +
-      '<p class="demo-desc">' + demo.description + '</p>' +
-      '<div class="audio-player">' +
-        '<button class="audio-play-btn" aria-label="Play ' + demo.title + '">' + playSVG + '</button>' +
-        '<div class="audio-progress-wrap">' +
-          '<div class="audio-progress"><div class="audio-progress-bar"></div></div>' +
-          '<span class="audio-time">0:00</span>' +
-        '</div>' +
-      '</div>';
+    audio.src = card.dataset.audioSrc;
 
     const playBtn = card.querySelector('.audio-play-btn');
     const progressBar = card.querySelector('.audio-progress-bar');
@@ -89,35 +75,11 @@
       }
     });
 
-    return card;
+    card.classList.add('media-ready');
   }
 
-  function loadDemos() {
-    fetch('/data/demos.json')
-      .then(function (res) { return res.json(); })
-      .then(function (demos) {
-        var grid = document.getElementById('demosGrid');
-        demos.forEach(function (demo) {
-          grid.appendChild(createAudioCard(demo));
-        });
-
-        var arabellaCard = document.getElementById('arabellaDemoCard');
-        if (arabellaCard) {
-          var age = document.getElementById('arabellaAge');
-          if (age && /^\d+$/.test(age.textContent.trim())) {
-            arabellaCard.appendChild(createAudioCard({
-              title: 'Arabella ' + age.textContent.trim() + ' years \u2013 Spooky child voice',
-              description: 'Creepy child character \u2013 VOXI / KISS style',
-              file: '/audio/kiss-voxi-mobil-scary-child-voice-arabella-harris.mp3'
-            }));
-          } else {
-            console.error('Server-rendered Arabella age is unavailable');
-          }
-        }
-      })
-      .catch(function (err) {
-        console.error('Failed to load demos:', err);
-      });
+  function initDemos() {
+    document.querySelectorAll('.demo-card[data-audio-src]').forEach(initAudioCard);
   }
 
   function getYouTubeId(url) {
@@ -132,23 +94,8 @@
     liteYt.innerHTML = posterMarkup.get(liteYt);
   }
 
-  function createVideoCard(video) {
-    var card = document.createElement('div');
-    card.className = 'video-card';
-
-    var id = getYouTubeId(video.url);
-    var thumbUrl = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
-
-    card.innerHTML =
-      '<div class="lite-youtube" data-id="' + id + '" data-title="' + (video.title || 'Video') + '">' +
-        '<img src="' + thumbUrl + '" alt="' + (video.title || 'Video') + '" loading="lazy">' +
-        '<button type="button" class="video-trigger" aria-label="Play ' + (video.title || 'Video') + ' video">' +
-          '<span class="play-overlay" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></span>' +
-        '</button>' +
-      '</div>' +
-      (video.title ? '<div class="video-card-title">' + video.title + '</div>' : '');
-
-    var liteYt = card.querySelector('.lite-youtube');
+  function initVideoCard(liteYt) {
+    var id = liteYt.dataset.id;
     liteYt.addEventListener('click', function (event) {
       if (!event.target.closest('.video-trigger')) return;
       if (activeVideoEl && activeVideoEl !== liteYt) {
@@ -167,27 +114,17 @@
       iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       iframe.allowFullscreen = true;
-      iframe.title = video.title || 'YouTube video';
+      iframe.title = liteYt.dataset.title || 'YouTube video';
       liteYt.innerHTML = '';
       liteYt.appendChild(iframe);
       activeVideoEl = liteYt;
     });
 
-    return card;
+    liteYt.closest('.video-card').classList.add('video-ready');
   }
 
-  function loadVideos() {
-    fetch('/data/videos.json')
-      .then(function (res) { return res.json(); })
-      .then(function (videos) {
-        var grid = document.getElementById('videosGrid');
-        videos.forEach(function (video) {
-          grid.appendChild(createVideoCard(video));
-        });
-      })
-      .catch(function (err) {
-        console.error('Failed to load videos:', err);
-      });
+  function initVideos() {
+    document.querySelectorAll('#videosGrid .lite-youtube').forEach(initVideoCard);
   }
 
   function initNav() {
@@ -319,8 +256,8 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initNav();
-    loadDemos();
-    loadVideos();
+    initDemos();
+    initVideos();
     initContactForm();
     function initStandaloneVideo(el) {
       if (!el) return;
@@ -349,6 +286,7 @@
         el.appendChild(iframe);
         activeVideoEl = el;
       });
+      el.closest('.laughs-video-item').classList.add('video-ready');
     }
     initStandaloneVideo(document.querySelector('.laughs-yt'));
     initStandaloneVideo(document.querySelector('.laughs-yt2'));

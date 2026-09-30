@@ -348,6 +348,26 @@ body {
   margin-bottom: 16px;
 }
 
+.demo-card:not(.media-ready) .audio-player {
+  display: none;
+}
+
+.media-ready > .media-fallback-link,
+.video-ready > .media-fallback-link {
+  display: none;
+}
+
+.media-fallback-link {
+  display: block;
+  color: var(--text);
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+.laughs-video-item > .media-fallback-link {
+  text-align: center;
+}
+
 .audio-player {
   display: flex;
   align-items: center;

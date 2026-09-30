@@ -1,2 +1,3 @@
 - [Google Maps mobile review verification](google-maps-mobile-review-verification.md) — headless mobile taps can fail to open tabs even when the official reviews URL renders existing reviews.
 - [HalloweenVoice brand semantics](halloweenvoice-brand-semantics.md) — owner confirmed Halloween Voice is a Guy Harris / VoiceoverGuy service brand, not a separate employer.
+- [HalloweenVoice media evidence](halloweenvoice-media-evidence.md) — keep one-click playback after activation; never fabricate upload timestamps from provider-displayed calendar dates.
