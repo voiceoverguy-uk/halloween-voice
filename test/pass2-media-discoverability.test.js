@@ -11,6 +11,14 @@ const template = fs.readFileSync(path.join(__dirname, '../public/index.html'), '
 const demos = require('../data/demos.json');
 const videos = require('../data/videos.json');
 const ids = ['0IhG9vy8G1Q', 'Ff6EB6Mrkys', 'OMlBk5QBnyM', 'E9YxOpjqeq8', 'Qnr7JE3WeI8', 'bmMpk16zuSs'];
+const evidencedUploadDates = {
+  '0IhG9vy8G1Q': '2022-09-30',
+  'Ff6EB6Mrkys': '2022-09-29',
+  'OMlBk5QBnyM': '2014-09-17',
+  'E9YxOpjqeq8': '2019-12-23',
+  'Qnr7JE3WeI8': '2025-07-02',
+  'bmMpk16zuSs': '2015-10-22'
+};
 const durations = [
   'PT30.041S', 'PT62.949S', 'PT30.224S', 'PT30.067S',
   'PT77.456S', 'PT72.927S', 'PT26.593S'
@@ -85,7 +93,7 @@ test('seven AudioObjects match visible recordings and measured local durations',
   assert.ok(!audio.some((node) => node.contentUrl.includes('/spooky-showreel-26-guy-harris.mp3')));
 });
 
-test('six VideoObjects reference each unique ID once, without unsupported dates or ownership', () => {
+test('six VideoObjects reference each unique ID once with evidenced date-only uploads and no unsupported ownership', () => {
   const { graph, html } = markupAndGraph(new Date('2026-09-30T12:00:00Z'));
   const video = graph.filter((node) => node['@type'] === 'VideoObject');
   assert.equal(video.length, 6);
@@ -95,8 +103,10 @@ test('six VideoObjects reference each unique ID once, without unsupported dates 
   for (const [i, node] of video.entries()) {
     assert.equal(node.embedUrl, `https://www.youtube.com/embed/${ids[i]}`);
     assert.equal(node.thumbnailUrl, `https://img.youtube.com/vi/${ids[i]}/hqdefault.jpg`);
+    assert.equal(node.uploadDate, evidencedUploadDates[ids[i]]);
+    assert.match(node.uploadDate, /^\d{4}-\d{2}-\d{2}$/, 'No fabricated time or timezone');
     assert.ok(node.name && node.description);
-    for (const property of ['creator', 'publisher', 'uploadDate', 'contentUrl', 'license']) {
+    for (const property of ['creator', 'publisher', 'contentUrl', 'license']) {
       assert.equal(node[property], undefined);
     }
   }
@@ -119,6 +129,16 @@ test('server delivers media-rich HTML and retains Pass 1 route behavior without 
   assert.equal(home.status, 200);
   assert.equal(home.headers.get('cache-control'), 'no-store');
   const html = await home.text();
+  const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  const audio = graph.filter((node) => node['@type'] === 'AudioObject');
+  const video = graph.filter((node) => node['@type'] === 'VideoObject');
+  assert.equal(audio.length, 7);
+  assert.equal(video.length, 6);
+  assert.equal(new Set(video.map((node) => node['@id'])).size, 6);
+  assert.deepEqual(Object.fromEntries(video.map((node) => [
+    new URL(node.url).searchParams.get('v'), node.uploadDate
+  ])), evidencedUploadDates);
+  assert.doesNotMatch(html, /2024-10-01/);
   assert.equal((html.match(/class="demo-card"/g) || []).length, 7);
   assert.equal((html.match(/class="video-trigger"/g) || []).length, 6);
   assert.match(html, /rel="canonical" href="https:\/\/halloweenvoice\.co\.uk\/"/);

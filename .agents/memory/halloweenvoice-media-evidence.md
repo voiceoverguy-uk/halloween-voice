@@ -9,8 +9,8 @@ Keep the existing one-click video experience: no iframe or playback before delib
 
 **How to apply:** For future changes to the video poster or embedded player, preserve deferred loading and start playback only after intentional activation.
 
-Never convert a provider-displayed calendar publication date into a fabricated exact upload time or timezone. An upload timestamp in structured data needs authoritative provider evidence; if a date-only value cannot pass the intended validation, omit it and disclose the eligibility limitation.
+Use the six provider-evidenced calendar publication dates as date-only `uploadDate` values. Never convert them into fabricated exact upload times or timezones.
 
-**Why:** The owner explicitly prefers missing optional discoverability over unsupported date claims; the original shared placeholder date had no per-video evidence.
+**Why:** After the deployed Google Rich Results Test reported missing `uploadDate` on all six videos, the owner explicitly authorised their evidenced ISO calendar dates, without invented time components.
 
-**How to apply:** Recheck each video's own provider metadata before emitting `uploadDate`; retain evidence per value and do not derive times from file dates, site history, snippets or invented midnight.
+**How to apply:** Maintain date-only values in the authoritative media catalogue using each video's own watch-page evidence. Do not derive times from file dates, site history, snippets or invented midnight.
